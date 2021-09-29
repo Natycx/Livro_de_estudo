@@ -36,6 +36,17 @@ def apresentacao_numero():
         print(f'Você escolheu o número: {numero[escolhido - 1]}')
 
 
+def adicao_de_elementos():
+    l = []
+    while True:  # Não pode ser transformado em for pois n sabemos o numero de elementos a ser inserido no l
+        n = int(input("Digite um numero (0 sai): "))
+        if n == 0:
+            break
+        l.append(n)
+    for i in l:
+        print(i)
+
+
 def listas():
     l = [1, 2, 3, 4]
     m = [4, 3, 7, 8]
@@ -156,10 +167,117 @@ def pilha_de_pratos():
         else: print('Operação invalida! Digite apenas E, D ou S!')
         
 
+def pesquisa_sequencial():
+    L = [15, 7, 27, 39]
+    p = int(input('Digite o valor a procurar: '))
+    v = int(input('Digite o valor a procurar: '))
+    x = 0
+    y = 0
+    while x < len(L):
+        if L[x] == p:
+            break
+        x += 1
+    while y < len(L):
+        if L[y] == v:
+            break
+        y += 1
+    if x <= len(L) and y <= len(L):
+        print(f'{p} foi achado na posição {x} e {v} foi achado na posição {y}')
+
+    else: print(f'Não achou {p}')
+
+
+def usando_for():
+    L = [7, 9, 10, 12]
+    p = int(input('Digite um numero a pesquisar: '))
+    for e in L:
+        if e == p:
+            print('Elemento encontrado!')
+            break
+    else: print('Elemento não encontrado!')
+
+
+def listas_range():
+    for v in range(0, 10, 2):
+        print(v)
+    for t in range(3, 33, 3):
+        print(t, end=" ")
+    print()
+    l = list(range(100, 1100, 50))
+    print(l)
+
+
+def listas_enumerate():
+    l = [5, 9, 13]
+    for z in enumerate(l):
+        x, e = z
+        print(z)
+        print(f'[{x}] {e}')
+
+
+def maior_menor():
+    l = [1, 7, 2, 4]
+    minimo = l[0]
+    for e in l:
+        if e < minimo:
+            maximo = e
+    print(minimo)
+
+
+def temperatura():
+    T = [-10, -8, 0, 1, 2, 5, -2, -4]
+    minimo = T[0]
+    maximo = T[0]
+    media = 0
+    for e in T:
+        if e < minimo:
+            minimo = e
+        if e > maximo:
+            maximo = e
+        media += e
+    resultado = media / len(T)
+    print(f'A temperatura minima foi: {minimo}\n'
+          f'A temperatura maxima foi: {maximo}\n'
+          f'A temperatura media foi {resultado}')
+
+
+def copia_de_elementos():
+    v = [9, 8, 7, 12, 0, 13, 21]
+    p = []
+    i = []
+    for e in v:
+        if e % 2 == 0: p.append(e)
+        else: i.append(e)
+    print('Pares: ', p)
+    print('Impares: ', i)
+
+
+def controle_sala_de_cinema():
+    lugares_vagos = [10, 2, 1, 3, 0]
+    while True:
+        sala = int(input('Sala (0 sai): '))
+        if sala == 0:
+            print('Fim')
+            break
+        if sala > len(lugares_vagos) or sala < 1:
+            print('Sala invalida')
+        elif lugares_vagos[sala - 1] == 0:
+            print('Desculpe, sala lotada!')
+        else:
+            lugares = int(input(f'Quantos lugares você deseja ({lugares_vagos[sala - 1]}) vagos: '))
+            if lugares > lugares_vagos[sala - 1]:
+                print('Esse número de lugares não está disponível')
+            elif lugares < 0: print('Numero invalido')
+            else:
+                lugares_vagos[sala - 1] -= lugares
+                print(f'{lugares} lugares vendidos ')
+        print('Utilização das salas')
+        for x, l in enumerate(lugares_vagos):
+            print(f'Sala {x + 1} - {l} lugar(es) vazio(s)')
 
 
 def main():
-    pilha_de_pratos()
+    controle_sala_de_cinema()
 
 
 if __name__ == '__main__':
