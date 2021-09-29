@@ -276,6 +276,9 @@ def controle_sala_de_cinema():
             print(f'Sala {x + 1} - {l} lugar(es) vazio(s)')
 
 
+
+
+
 def main():
     controle_sala_de_cinema()
 
