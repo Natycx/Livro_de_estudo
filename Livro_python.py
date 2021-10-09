@@ -9,7 +9,7 @@ def calculo_media():
 
 
 def media():
-    notas = [0]*7
+    notas = [0] * 7
     soma = 0
     x = 0
     while x < 5:
@@ -24,7 +24,7 @@ def media():
 
 
 def apresentacao_numero():
-    numero = [0]*5
+    numero = [0] * 5
     x = 0
     while x < 5:
         numero[x] = int(input(f'Numero {x + 1}: '))
@@ -159,13 +159,16 @@ def pilha_de_pratos():
             if len(pilha) > 0:
                 lavado = pilha.pop(-1)
                 print(f'Prato {lavado} lavado')
-            else: print('Pilha vazia')
+            else:
+                print('Pilha vazia')
         elif operacao == 'E':
             prato += 1  # Novo prato
             pilha.append(prato)
-        elif operacao == 'S': break
-        else: print('Operação invalida! Digite apenas E, D ou S!')
-        
+        elif operacao == 'S':
+            break
+        else:
+            print('Operação invalida! Digite apenas E, D ou S!')
+
 
 def pesquisa_sequencial():
     L = [15, 7, 27, 39]
@@ -184,7 +187,8 @@ def pesquisa_sequencial():
     if x <= len(L) and y <= len(L):
         print(f'{p} foi achado na posição {x} e {v} foi achado na posição {y}')
 
-    else: print(f'Não achou {p}')
+    else:
+        print(f'Não achou {p}')
 
 
 def usando_for():
@@ -194,7 +198,8 @@ def usando_for():
         if e == p:
             print('Elemento encontrado!')
             break
-    else: print('Elemento não encontrado!')
+    else:
+        print('Elemento não encontrado!')
 
 
 def listas_range():
@@ -246,8 +251,10 @@ def copia_de_elementos():
     p = []
     i = []
     for e in v:
-        if e % 2 == 0: p.append(e)
-        else: i.append(e)
+        if e % 2 == 0:
+            p.append(e)
+        else:
+            i.append(e)
     print('Pares: ', p)
     print('Impares: ', i)
 
@@ -267,7 +274,8 @@ def controle_sala_de_cinema():
             lugares = int(input(f'Quantos lugares você deseja ({lugares_vagos[sala - 1]}) vagos: '))
             if lugares > lugares_vagos[sala - 1]:
                 print('Esse número de lugares não está disponível')
-            elif lugares < 0: print('Numero invalido')
+            elif lugares < 0:
+                print('Numero invalido')
             else:
                 lugares_vagos[sala - 1] -= lugares
                 print(f'{lugares} lugares vendidos ')
@@ -276,11 +284,110 @@ def controle_sala_de_cinema():
             print(f'Sala {x + 1} - {l} lugar(es) vazio(s)')
 
 
+def lista_de_compras():
+    compras = []
+    while True:
+        produto = input('Produto: ')
+        if produto == 'fim':
+            break
+        compras.append(produto)
+    for p in compras:
+        print(p)
 
+
+def string():
+    S = ['Maçã', 'peras', 'kiwis']
+    print(S[2][1])
+
+
+def lista_de_string():
+    L = ['maçãs', 'peras', 'kiwis']
+    for s in L:
+        for letras in (s):
+            print(letras)
+
+
+def lista_de_lista():
+    produto1 = ['maçã', 10, 0.30]
+    produto2 = ['pera', 5, 0.75]
+    produto3 = ['kiwi', 4, 0.98]
+    compras = [produto1, produto2, produto3]
+    for e in compras:
+        print(f'Produto: {e[0]}')
+        print(f'Quantidade: {e[1]}')
+        print(f'Preço: {e[2]:5.2f}')
+
+
+def criacao_lista_de_compras():
+    compras = []
+    while True:
+        produto = input('Produto: ')
+        if produto == 'fim':
+            break
+        quantidade = int(input('Digite a quantidade: '))
+        preco = float(input('Digite o preço: '))
+        compras.append([produto, quantidade, preco])
+    soma = 0
+    for e in compras:
+        print(f'{e[0]:20s} x {e[1]:5d} {e[2]:5.2f} {e[1] * e[2]:6.2f}')
+        soma += e[1] * e[2]
+        print(f'Total: {soma:7.2f}')
+
+
+def bublle_sorte():
+    L = [1, 2, 3, 4, 5]
+    fim = 5
+    while fim > 1:
+        trocou = False
+        x = 0
+        while x < (fim - 1):
+            if L[x] < L[x + 1]:
+                trocou = True
+                temp = L[x]
+                L[x] = L[x + 1]
+                L[x + 1] = temp
+            x += 1
+        if not trocou:
+            break
+        fim -= 1
+    for e in L:
+        print(e)
+
+
+def dicionario():
+    tabela = {'alface': 0.45,
+              'Batata': 1.20,
+              'Tomate': 2.30,
+              'Feijão': 1.50}
+    print(tabela['alface'])
+    print(tabela)
+    tabela['Tomate'] = 2.5
+    print(tabela['Tomate'])
+    tabela['cebola'] = 1.20
+    print(tabela)
+    print('Manga' in tabela)
+    print('Batata' in tabela)
+    print(tabela.keys())
+    print(tabela.values())
+
+
+def obtencao_de_valor_dicionario():
+    tabela = {'alface': 0.45,
+              'Batata': 1.20,
+              'Tomate': 2.30,
+              'Feijão': 1.50}
+    while True:
+        produto = input('Digite o nome do produto, fim para terminar: ')
+        if produto == 'fim':
+            break
+        if produto in tabela:
+            print(f'Preço {tabela[produto]:5.2f}')
+        else:
+            print('Produto não encontrado')
 
 
 def main():
-    controle_sala_de_cinema()
+    obtencao_de_valor_dicionario()
 
 
 if __name__ == '__main__':
