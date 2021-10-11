@@ -387,20 +387,26 @@ def obtencao_de_valor_dicionario():
 
 
 def dicionario_com_estoque():
-    estoque = {'alface': [500, 0.45],
+    estoque = {'Alface': [500, 0.45],
                'Batata': [2001, 1.20],
                'Tomate': [1000, 2.30],
                'Feijão': [100, 1.50]}
-    venda = [['Tomate', 5], ['Batata', 10], ['alface', 5]]
     total = 0
     print('Vendas: \n')
-    for operacao in venda:
-        produto, quantidade = operacao
-        preco = estoque[produto][1]
-        custo = preco * quantidade
-        print(f'{produto:12s} : {quantidade:3d} x {preco:6.2f} = {custo:6.2f}')
-        estoque[produto][0] -= quantidade
-        total += custo
+    while True:
+        produto = input('Digite o nome do produto, fim para terminar: ')
+        quantidade = int(input('Digite a quantidade desejada: '))
+        if produto == 'fim' or quantidade == 0:
+            break
+        if produto in estoque:
+            preco = estoque[produto][1]
+            custo = preco * quantidade
+            print(f'{produto:12s} : {quantidade:3d} x {preco:6.2f} = {custo:6.2f}')
+            estoque[produto][0] -= quantidade
+            total += custo
+        else:
+            print('Produto não encontrado')
+
     print(f'Custo total: {total:21.2f}\n')
     print('Estoque: \n')
     for chave, dados in estoque.items():
@@ -409,8 +415,141 @@ def dicionario_com_estoque():
         print(f'Preço: {dados[1]:6.2f}\n')
 
 
+def dicionario_de_frases():
+    frase = {}
+    letras = input('Digite a palavra: ')
+    for letra in letras:
+        if letra in frase:
+            frase[letra] = frase[letra] + 1
+        else:
+            frase[letra] = 1
+    print(frase)
+
+
+def dicionario_sem_padrao():
+    d = {}
+    for letra in "abacadabra":
+        if letra in d:
+            d[letra] = d[letra] + 1
+        else:
+            d[letra] = 1
+    print(d)
+
+
+def dicionario_usando_get():
+    d = {}
+    for letra in "abacadabra":
+        d[letra] = d.get(letra, 0) + 1
+    print(d)
+
+
+def comparacao_conjuntos():
+    a = {0, 2, 3, 1, 5}
+    b = {0, 1, 8, 7, 9}
+    print(a & b)
+    print(a - b)
+    print(b - a)
+    print((a - b) | (b - a))
+
+
+def listas_conjunto():
+    a = {0, 2, 3, 1, 5}
+    b = {0, 1, 5, 2, 8, 7, 9}
+    print(f'Novos elementos: {b - a}')
+    print(f'Elementos que não mudaram {a & b}')
+    print(f'Elementos removidos: {a - b}')
+
+
+def pesquisa_string():
+    s = 'um tigre, dois tigres, três tigres'
+    p = 0
+    while p > -1:
+        p = s.find('tigre', p)
+        if p >= 0:
+            print(f'Posição: {p}')
+            p += 1
+
+
+def comparacao_string():
+    a = 'AABBEFAATT'
+    b = 'BE'
+    p = 0
+    while p > -1:
+        p = a.find(b, p)
+        if p >= 0:
+            print(f'{b} encontrado na posição: {p} de {a}')
+            p += 1
+
+
+def geracao_de_string():
+    a = 'AAACTBF'
+    b = 'CBT'
+    b = list(b)
+    a = list(a)
+    resultado = ''
+    for i in range(3):
+        if b[i] in a:
+            resultado += b[i]
+    print(resultado)
+
+
+def unica_string():
+    a = 'CTA'
+    b = 'ABC'
+    b = list(b)
+    a = list(a)
+    print(b)
+    resultado = ''
+    for i in range(3):
+        if b[i] not in a:
+            resultado += b[i]
+        if a[i] not in b:
+            resultado += a[i]
+    print(resultado)
+
+
+def leitura_string():
+    letra = 'TTAAC'
+    print(f'T: {letra.count("T")}')
+    print(f'A: {letra.count("A")}')
+    print(f'C: {letra.count("C")}')
+
+
+def tratamento_string():
+    a = 'AATTGGAA'
+    b = 'TG'
+    c = ''
+    for letra in a:
+       if letra not in b:
+            c += letra
+    print(c)
+
+
+def substituicao_string():
+    a = input("Digite a primeira string: ")
+    b = input("Digite a segunda string: ")
+    c = input("Digite a terceira string: ")
+
+    if len(b) == len(c):
+        resultado = ""
+        for letra in a:
+            posicao = b.find(letra)
+            if posicao != -1:
+                resultado += c[posicao]
+            else:
+                resultado += letra
+
+        if resultado == "":
+            print("Todos os caracteres foram removidos.")
+        else:
+            print(f"Os caracteres {b} foram substituidos por "
+                  f"{c} em {a}, gerando: {resultado}")
+    else:
+        print("ERRO: A segunda e a terceira string devem ter o mesmo tamanho.")
+
+
 def main():
-    dicionario_com_estoque()
+    substituicao_string()
 
 
 if __name__ == '__main__':
