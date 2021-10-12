@@ -520,7 +520,7 @@ def tratamento_string():
     b = 'TG'
     c = ''
     for letra in a:
-       if letra not in b:
+        if letra not in b:
             c += letra
     print(c)
 
@@ -548,8 +548,394 @@ def substituicao_string():
         print("ERRO: A segunda e a terceira string devem ter o mesmo tamanho.")
 
 
+def jogo_da_forca():
+    lista_de_palavras = ['amor', 'fato', 'viés', 'mito', 'caos', 'esmo',
+                         'brio', 'como', 'vide', 'você', 'ação', 'após',
+                         'sede', 'auge', 'pois', 'ermo', 'vida', 'ônus',
+                         'saga', 'mote', 'suma', 'tolo', 'apto', 'idem',
+                         'medo', 'crer', 'além', 'urge', 'veio', 'área',
+                         'vovó', 'casa', 'sina', 'pude', 'zelo', 'cota',
+                         'ruim', 'coxo', 'soar', 'ente', 'ater', 'rude',
+                         'fase', 'pela', 'rima', 'voga', 'auto', 'mais',
+                         'para', 'será', 'cedo', 'onde', 'cujo', 'tudo',
+                         'sela', 'meio', 'trás', 'logo', 'teor', 'jugo',
+                         'ante', 'cela', 'nojo', 'face', 'amar', 'pose']
+
+    numero = int(input('Digite um numero'))
+    indice = (numero * 776) % len(lista_de_palavras)
+    palavra = lista_de_palavras[indice].lower().strip()
+    for x in range(100):
+        print()
+    digitadas = []
+    acertos = []
+    erros = 0
+    while True:
+        senha = ''
+        for letra in palavra:
+            senha += letra if letra in acertos else '.'
+        print(senha)
+        if senha == palavra:
+            print('Voê acertou!')
+            break
+        tentativa = input('\nDigite uma letra: ').lower().strip()
+        if tentativa in digitadas:
+            print('Você já tentou esta letra!')
+            continue
+        else:
+            digitadas += tentativa
+            if tentativa in palavra:
+                acertos += tentativa
+            else:
+                erros += 1
+                print('Você errou!')
+            print('X==:==\nX  :  ')
+            print('X  0  ' if erros >= 1 else 'X')
+            linha2 = ''
+            if erros == 2:
+                linha2 = '  |  '
+            elif erros == 3:
+                linha2 = ' \|  '
+            elif erros >= 4:
+                linha2 = '  \|/  '
+            print(f'X{linha2}')
+            linha3 = ''
+            if erros == 5:
+                linha3 += '  /    '
+            elif erros >= 6:
+                linha3 += '  / \   '
+            print(f'X{linha3}')
+            print('X\n===========')
+            if erros == 6:
+                print('Enforcado!')
+                print(f'A palavra era {palavra}')
+                break
+
+
+def desenho_jogo(posicoes):
+    print(f'{posicoes[0][0]}  |  {posicoes[0][1]}  |  {posicoes[0][2]}')
+    print('---+---+---')
+    print(f'{posicoes[1][0]}  |  {posicoes[1][1]}  |  {posicoes[1][2]}')
+    print('---+---+---')
+    print(f'{posicoes[2][0]}  |  {posicoes[2][1]}  |  {posicoes[2][2]}')
+
+
+def valida_vencedor(matriz):
+    venceu = False
+    condicao_vitoria = [
+        [(0, 0), (0, 1), (0, 2)],
+        [(1, 0), (1, 1), (1, 2)],
+        [(2, 0), (2, 1), (1, 2)],
+        [(0, 0), (1, 1), (2, 2)],
+        [(0, 2), (1, 1), (2, 0)],
+        [(0, 0), (1, 0), (2, 0)],
+        [(0, 1), (1, 1), (2, 1)],
+        [(0, 2), (1, 2), (2, 1)]
+    ]
+
+    for x in condicao_vitoria:
+        posicao1 = matriz[x[0][0]][x[0][1]]
+        posicao2 = matriz[x[1][0]][x[1][1]]
+        posicao3 = matriz[x[2][0]][x[2][1]]
+        if '_' not in [posicao1, posicao2, posicao3]:
+            if posicao1 == posicao2 == posicao3:
+                venceu = True
+                break
+
+    return venceu
+
+
+def troca_jogador(jogador):
+    if jogador == 'x':
+        jogador = 'o'
+    else:
+        jogador = 'x'
+    return jogador
+
+
+def jogo_da_velha():
+    posicoes = [['', '', ''], ['', '', ''], ['', '', '']]
+    print(desenho_jogo(posicoes))
+    jogador = ''
+    fim_de_jogo = False
+
+    while True:
+        if jogador != 'x' and jogador != 'o':
+            jogador = input('Digite x ou o: ')
+        else:
+            break
+    while True:
+        print(f'Agora é a vez do {jogador}')
+        for i in range(0, 3):
+            entrada = ''
+            for j in range(0, 3):
+                if posicoes[i][j] not in ['x', 'o']:
+                    entrada = input('Digite a posição para jogar: ')
+                    if entrada == 1:
+                        posicoes[0][0] = jogador
+                        break
+                    elif entrada == '2':
+                        posicoes[0][1] = jogador
+                        break
+                    elif entrada == '3':
+                        posicoes[0][2] = jogador
+                        break
+                    elif entrada == '4':
+                        posicoes[1][0] = jogador
+                        break
+                    elif entrada == '5':
+                        posicoes[1][1] = jogador
+                        break
+                    elif entrada == '6':
+                        posicoes[1][2] = jogador
+                        break
+                    elif entrada == '7':
+                        posicoes[2][0] = jogador
+                        break
+                    elif entrada == '8':
+                        posicoes[2][1] = jogador
+                        break
+                    elif entrada == '9':
+                        posicoes[2][2] = jogador
+                        break
+            if entrada != '':
+                break
+        desenho_jogo(posicoes)
+
+        if valida_vencedor(posicoes):
+            print(f'{jogador} Ganhou!')
+            break
+
+        jogador = troca_jogador(jogador)
+
+
+def soma(a, b):
+    return a + b
+
+
+def subtracao(a, b):
+    return a - b
+
+
+def epar(x):
+    return x % 2 == 0
+
+
+def impar(x):
+    return not epar(x)
+
+
+def par_ou_impar(x):
+    if epar(x):
+        return 'par'
+    else:
+        return 'impar'
+
+
+def maximo(a, b):
+    if a > b:
+        return a
+    else:
+        return b
+
+
+def multipos(a, b):
+    if a % b == 0:
+        return True
+    else:
+        return False
+
+
+def area(lado):
+    A = lado * lado
+    return A
+
+
+def area_triangulo(base, altura):
+    A = (base * altura) / 2
+    return A
+
+
+def pesquise(lista, valor):
+    if valor in lista:
+        return lista.index(valor)
+    return None
+
+
+def soma2(l):
+    total = 0
+    for x in range(5):
+        total += l[x]
+    return total
+
+
+def fatorial1(n):
+    fat = 1
+    x = 1
+    while x <= n:
+        fat *= x
+        x += 1
+    return fat
+
+
+def como_nao_escrever_uma_funcao():
+    l = [1, 7, 2, 9, 15]
+    print(soma2(l))
+
+
+def teste():
+    a = 7
+    print(f'A dentro da função: {a}')
+
+
+def pesquisa_lista():
+    L = [10, 20, 25, 30]
+    print(pesquise(L, 25))
+    print(pesquise(L, 27))
+
+
+def fatorial(n):
+    print(f'Calculando o fatorial de {n}')
+    if n == 0 or n == 1:
+        print(f'Fatorial de {n} == 1')
+        return 1
+    else:
+        fat = n * fatorial(n - 1)
+        print(f'Fatorial de {n} = {fat}')
+    return fat
+
+
+def maior_divisor_comum(a, b):
+    if b == 0:
+        return a
+    else:
+        return maior_divisor_comum(b, a % b)
+
+
+def menor_divisor_comum(a, b):
+    resultado = (abs(a * b)) / maior_divisor_comum(a, b)
+    return resultado
+
+
+def fibonacci_sem_recursao():
+    n = int(input('Digite um numero: '))
+    v1 = 1
+    v2 = 1
+    soma = 0
+    if n <= 2:
+        return 1
+    while n > soma:
+        v3 = v1 + v2
+        v1 = v2
+        v2 = v3
+        print(v3)
+        soma += 1
+
+
+def validacao_sem_recursao():
+    while True:
+        v = int(input('Digite um valor entre 0 e 5: '))
+        if v < 0 or v > 5:
+            print('Valor invalido.')
+        else:
+            break
+
+
+def faixa_int(pergunta, minimo, maximo):
+    while True:
+        v = int(input(pergunta))
+        if v < minimo or v > maximo:
+            print(f'Valor invalido. Digite um valor entre {minimo} e {maximo}')
+        else:
+            return v
+
+
+def validacao_string(palavra, minimo, maximo):
+    while True:
+        v = input(palavra)
+        if len(v) < minimo or len(v) > maximo:
+            print(f'Valor invalido. Digite uma palavras com caracter entre {minimo} e {maximo}')
+        else:
+            return v
+
+
+def lista_de_palavras():
+    lista_de_palavras = ['amor', 'fato', 'viés', 'mito', 'caos', 'esmo',
+                         'brio', 'como', 'vide', 'você', 'ação', 'após',
+                         'sede', 'auge', 'pois', 'ermo', 'vida', 'ônus',
+                         'saga', 'mote', 'suma', 'tolo', 'apto', 'idem',
+                         'medo', 'crer', 'além', 'urge', 'veio', 'área',
+                         'vovó', 'casa', 'sina', 'pude', 'zelo', 'cota',
+                         'ruim', 'coxo', 'soar', 'ente', 'ater', 'rude',
+                         'fase', 'pela', 'rima', 'voga', 'auto', 'mais',
+                         'para', 'será', 'cedo', 'onde', 'cujo', 'tudo',
+                         'sela', 'meio', 'trás', 'logo', 'teor', 'jugo',
+                         'ante', 'cela', 'nojo', 'face', 'amar', 'pose']
+    return lista_de_palavras
+
+
+def validacao_string_lista(palavra, lista):
+    while True:
+        v = input(palavra)
+        for v in lista:
+            return True
+        else:
+            return False
+
+
+def valida_entrada(mensagem, opcoes):
+    opcoes1 = opcoes.lower()
+    while True:
+        escolha = input(mensagem)
+        if escolha.lower() in opcoes1:
+            break
+        print("Erro: opção inválida. Redigite.\n")
+    return escolha
+
+
+def barra(n=40, caracter='*'):
+    print(caracter * n)
+
+
+def soma_parametros(a, b, imprime=False):
+    s = a + b
+    if imprime:
+        print(s)
+    return s
+
+
+def funcao_retangulo(largura, altura, caracter='*'):
+    linha = caracter * largura
+    for i in range(altura):
+        print(linha)
+
+
+def imprime(a, b, foper):
+    print(foper(a, b))
+
+
+def funcoes_como_parametro():
+    imprime(5, 4, soma)
+    imprime(10, 1, subtracao)
+
+
+def imprime_lista(l, fimpressao, fcondicao):
+    for e in l:
+        if fcondicao(e):
+            fimpressao(e)
+
+
+def imprime_elemento(e):
+    print(f'Valor: {e}')
+
+
+def configuracao_de_funcao_com_funcao():
+    l = [1, 7, 9, 2, 11, 0]
+    imprime_lista(l, imprime_elemento, epar)
+    imprime_lista(l, imprime_elemento, impar)
+
+
 def main():
-    substituicao_string()
+    configuracao_de_funcao_com_funcao()
 
 
 if __name__ == '__main__':
