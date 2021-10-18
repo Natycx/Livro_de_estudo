@@ -1,9 +1,12 @@
+import random
+import types
+
 def calculo_media():
     notas = [6, 7, 5, 8, 9]
     soma = 0
     x = 0
     while x < 5:
-        soma = soma + notas[x]
+        soma += notas[x]
         x = x + 1
     print(f'Média: {soma / x:5.2f}')
 
@@ -717,7 +720,10 @@ def subtracao(a, b):
 
 
 def epar(x):
-    return x % 2 == 0
+    try:
+        return x % 2 == 0
+    finally:
+        print('Executado antes de retornar')
 
 
 def impar(x):
@@ -892,7 +898,7 @@ def valida_entrada(mensagem, opcoes):
     return escolha
 
 
-def barra(n=40, caracter='*'):
+def barra(n=10, caracter='*'):
     print(caracter * n)
 
 
@@ -934,8 +940,201 @@ def configuracao_de_funcao_com_funcao():
     imprime_lista(l, imprime_elemento, impar)
 
 
+def soma3(a, b):
+    print(a + b)
+
+
+def empacotamento_e_desempacotamento_de_parametros():
+    l = [2, 3]
+    soma3(*l)
+    n = [[5, '-'], [10, '-'], [5], [6, '-']]
+    for e in n:
+        barra(*e)
+
+
+def soma_com_indeterminados_parametros(*args):
+    s = 0
+    for x in args:
+        s += x
+    return s
+
+
+def imprime_maior(mensagem, *numeros):
+    maior = None
+    for e in numeros:
+        if maior is None or maior < e:
+            maior = e
+    print(mensagem, maior)
+
+
+def desempacotamento_de_parametros():
+    print(soma_com_indeterminados_parametros(1, 2))
+    print(soma_com_indeterminados_parametros(2))
+    print(soma_com_indeterminados_parametros(5, 6, 7, 8))
+    print(soma_com_indeterminados_parametros(9, 10, 20, 30, 40))
+    print(imprime_maior('Maior:', 5, 4, 3, 1))
+    print(imprime_maior('Max:', *[1, 7, 9]))
+
+
+def funcao_lambda():
+    a = lambda x: x * 2
+    print(a(3))
+    aumento = lambda b, c: (b * c / 100)
+    print(aumento(100, 5))
+    l = ['A', 'b', 'C', 'd', 'E']
+    l.sort()
+    print(l)
+    l.sort(key=lambda k: k.lower())
+    print(l)
+
+
+def excecoes():
+    nomes = ['Ana', 'Carlos', 'Maria']
+    for tentativas in range(3):
+        try:
+            i = int(input('Digite o indice que vc quer imprimir: '))
+            print(nomes[i])
+        except ValueError:
+            print('Digite um numero!')
+        except IndexError:
+            print('Valor valido entre -3 e 3')
+
+
+def excecoes_das_excecoes():
+    nomes = ['Ana', 'Carlos', 'Maria']
+    for tentativas in range(3):
+        try:
+            i = int(input('Digite o indice que vc quer imprimir: '))
+            print(nomes[i])
+        except Exception as e:
+            print(f'Algo de errado aconteceu: {e}')
+
+
+def excecoes_finally():
+    nomes = ['Ana', 'Carlos', 'Maria']
+    for tentativas in range(3):
+        try:
+            i = int(input('Digite o indice que vc quer imprimir: '))
+            print(nomes[i])
+        except ValueError as e:
+            print('Digite um numero!')
+        finally:
+            print(f'Tentativas {tentativas + 1}')
+
+
+def excecoes_raise():
+    nomes = ['Ana', 'Carlos', 'Maria']
+    for tentativas in range(3):
+        try:
+            i = int(input('Digite o indice que vc quer imprimir: '))
+            print(nomes[i])
+        except ValueError as e:
+            print('Digite um numero!')
+            raise
+        finally:
+            print('Finally sempre executado')
+
+
+def excecoes_funcao():
+    try:
+        print(2, epar(2))
+        print('a', epar('a'))
+    except Exception:
+        print('Algo deu errado')
+
+
+def excecoes_try_else_if():
+    while True:
+        try:
+            v = int(input('Digite um numero inteiro (0 sai): '))
+            if v == 0:
+                break
+        except Exception:
+            print("Valor invalido")
+        else:
+            print('Parabens nenhuma exceção')
+        finally:
+            print('Executado sempre, mesmo com break')
+
+
+def funcao_raint():
+    for x in range(10):
+        print(random.randint(1, 100))
+
+
+def adivinhe_o_numero():
+    n = random.randint(1, 10)
+
+    tentativa = 3
+    while tentativa > 0:
+        x = int(input('Escolha um numero de 1 a 10: '))
+        if x == n:
+            print('Você acertou!')
+            break
+        else:
+            print('Você errou')
+            tentativa -= 1
+            print(f'Você tem {tentativa}')
+            if tentativa == 0:
+                print('Acabou o numero de tentativas')
+
+
+def funcao_random():
+    for x in range(10):
+        print(random.random())
+        print(random.uniform(15, 25))
+        print(random.sample(range(1, 101), 6))
+    a = list(range(1, 11))
+    random.shuffle(a)
+    print(a)
+
+
+def diz_o_tipo(a):
+    if isinstance(a, str):
+        return "String"
+    elif isinstance(a, list):
+        return 'Lista'
+    elif isinstance(a, dict):
+        return 'Dicionario'
+    elif isinstance(a, int):
+        return 'Numero inteiro'
+    elif isinstance(a, float):
+        return 'Numero decimal'
+    elif isinstance(a, types.FunctionType):
+        return 'Função'
+    elif isinstance(a, types.BuiltinFunctionType):
+        return 'Função inteira'
+    else:
+        return str(type(a))
+
+
+def diz_o_tipo_exemplos():
+    print(diz_o_tipo(10))
+    print(diz_o_tipo(10.5))
+    print(diz_o_tipo('Alô'))
+    print(diz_o_tipo([1, 2, 3]))
+    print(diz_o_tipo({'a': 1, 'B': 50}))
+    print(diz_o_tipo(print()))
+    print(diz_o_tipo(None))
+    L = [2, 'Alô', ["!"], {"a": 1, 'b': 2}]
+    for e in L:
+        print(type(e))
+
+
+def navegando_listas_apartir_dos_elementos():
+    l = ['a', ['b', 'c', 'd'], 'e']
+    for x in l:
+        if type(x) is str:
+            print(x)
+        else:
+            print('Lista: ', end='')
+            for z in x:
+                print(f'{z}', end='')
+                print()
+
+
 def main():
-    configuracao_de_funcao_com_funcao()
+    navegando_listas_apartir_dos_elementos()
 
 
 if __name__ == '__main__':
