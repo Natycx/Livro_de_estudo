@@ -1133,8 +1133,25 @@ def navegando_listas_apartir_dos_elementos():
                 print()
 
 
+def variaveis():
+    espaco_por_nivel = 4
+    return espaco_por_nivel
+
+
+def imprime_elementos(l, nivel=0):
+    espaco = '' *variaveis() * nivel
+    if type(l) == list:
+        print(espaco, '[')
+        for e in l:
+            imprime_elementos(e, nivel + 1)
+        print(espaco, ']')
+    else:
+        print(espaco, l)
+
+
 def main():
-    navegando_listas_apartir_dos_elementos()
+    l = [1, [2, 3, 4, [5, 6, 7]]]
+    imprime_elementos(l)
 
 
 if __name__ == '__main__':
