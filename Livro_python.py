@@ -1252,11 +1252,86 @@ def parametros_da_linha_de_comando():
     for n, p in enumerate(sys.argv):
         print(f'Parametro {n} = {p}')
 
-# Usar no python console
+# Usar no python console utilizar python ./nome do arquivo.txt parametros depois
+
+
+def gravacao_de_numeros_pares_e_impares():
+    with open('impares.txt', 'w') as impares, open('pares.txt', 'w') as pares:
+        for n in range(0, 1000):
+            if n % 2 == 0:
+                pares.write(f'{n}\n')
+            else:
+                impares.write(f'{n}\n')
+
+
+def multiplos_de_4():
+    with open("multiplos de 4.txt", "w") as multiplos4:
+        with open("pares.txt") as pares:
+            for l in pares.readlines():
+                if int(l) % 4 == 0:
+                    multiplos4.write(l)
+
+
+def le_numero(arquivo):
+    while True:
+        numero = arquivo.readline()
+        if numero == '':
+            return None
+        if numero.strip() != '':
+            return int(numero)
+
+
+def escreve_numero(arquivo, n):
+    arquivo.write(f'{n}\n')
+
+
+def pareseimpares():
+    pares = open('pares.txt')
+    impares = open('impares.txt')
+    pares_e_impares = open('pareseimpares.txt', 'w')
+    npar = le_numero(pares)
+    nimpar = le_numero(impares)
+    while True:
+        if npar is None and nimpar is None:
+            break
+        if npar is not None and (nimpar is None or npar <= nimpar):
+            escreve_numero(pares_e_impares, npar)
+            npar = le_numero(pares)
+        if nimpar is not None and (npar is None or nimpar <= npar):
+            escreve_numero(pares_e_impares, nimpar)
+            nimpar = le_numero(impares)
+    pares.close()
+    impares.close()
+    pares_e_impares.close()
+
+
+def linhas_invertidas():
+    pares = open('pares.txt', 'r')
+    lista_invertida = open('lista_invertida.txt', 'w')
+    l = pares.readlines()
+    l.reverse()
+    for x in l:
+        lista_invertida.write(x)
+    pares.close()
+    lista_invertida.close()
+
+
+def processamento_de_um_arquivo():
+    largura = 79
+    with open('arquivo.txt')  as entrada:
+        for linha in entrada.readlines():
+            if linha[0] == ';':
+                continue
+            elif linha[0] == '>':
+                print(linha[:1].rjust(largura))
+            elif linha[0] == '*':
+                print(linha[1:].center(largura))
+            else:
+                print(linha)
 
 
 def main():
-    parametros_da_linha_de_comando()
+    processamento_de_um_arquivo()
 
 
 if __name__ == '__main__':
