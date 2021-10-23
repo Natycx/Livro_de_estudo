@@ -1,5 +1,8 @@
 import random
+import sys
 import types
+import math
+
 
 def calculo_media():
     notas = [6, 7, 5, 8, 9]
@@ -1139,7 +1142,7 @@ def variaveis():
 
 
 def imprime_elementos(l, nivel=0):
-    espaco = '' *variaveis() * nivel
+    espaco = '' * variaveis() * nivel
     if type(l) == list:
         print(espaco, '[')
         for e in l:
@@ -1149,9 +1152,111 @@ def imprime_elementos(l, nivel=0):
         print(espaco, l)
 
 
+def comprehensions():
+    l = [x for x in range(10)]
+    k = [x * 2 for x in [0, 1, 2, 3]]
+    y = [(x, x * 2) for x in [1, 2, 3]]
+    z = [s.upper() for s in "abcdef"]
+    p = [x for x in range(10) if x % 2 == 0]
+    d = [(y, x) for x, y in [(4, 3), (2, 1), (8, 9)]]
+    g = [(x, y) for *x, y in [(4, 2, 3), (5, 1, 2), (7, 8, 9)]]
+    j = [(x, y) for x, *y in [(4, 2, 3), (5, 1, 2), (7, 8, 9)]]
+    i = [math.sqrt(z) for z in range(0, 10)]
+    h = [z for z in range(0, 10) if math.sqrt(z) % 1 == 0]
+    print(l)
+    print(k)
+    print(y)
+    print(z)
+    print(p)
+    print(d)
+    print(g)
+    print(j)
+    print(i)
+    print(h)
+
+
+def gerador_de_numeros():
+    i = 0
+    while True:
+        yield i
+        i += 1
+
+
+def geradores():
+    g = gerador_de_numeros()
+    print(g)
+    print(next(g))
+    print(next(g))
+    print(next(g))
+    print(next(g))
+    print(next(g))
+    print(next(g))
+    print(next(g))
+    for x in gerador_de_numeros():
+        print(x)
+
+
+def gerador_fibonacci():
+    p = 0
+    s = 1
+    while s < 10:
+        yield s
+        p, s = s, s + p
+
+
+def resultado_gerador_de_fibonacci():
+    l = [x for x in gerador_fibonacci()]
+    print(l)
+
+
+def gerador_numeros_primos():
+    for y in (n for n in range(100) if n % 2 != 0 and n % 3 != 0 and n % 5 != 0):
+        print(y)
+
+
+def generator_fibonacci():
+    def fibonacci(n):
+        p = 0
+        s = 1
+        while n > 0:
+            yield p
+            p, s = s, s + p
+            n -= 1
+
+    for f in fibonacci(10):
+        print(f)
+
+
+def arquivos():
+    arquivo = open('números.txt', 'w')
+    for linha in range(1, 101):
+        arquivo.write(f'{linha}\n')
+    arquivo.close()
+
+
+def abrindo_lendo_e_fechando_arquivos():
+    arquivo = open('números.txt', 'r')
+    for linha in arquivo.readline():
+        print(linha)
+    arquivo.close()
+
+
+def uso_do_with():
+    with open('números.txt', 'r') as arquivo:
+        for linha in arquivo.readline():
+            print(linha)
+
+
+def parametros_da_linha_de_comando():
+    print(f'Numero de parametros: {len(sys.argv)}')
+    for n, p in enumerate(sys.argv):
+        print(f'Parametro {n} = {p}')
+
+# Usar no python console
+
+
 def main():
-    l = [1, [2, 3, 4, [5, 6, 7]]]
-    imprime_elementos(l)
+    parametros_da_linha_de_comando()
 
 
 if __name__ == '__main__':
