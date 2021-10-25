@@ -1322,12 +1322,21 @@ def processamento_de_um_arquivo():
         for linha in entrada.readlines():
             if linha[0] == ';':
                 continue
+            elif linha[0] == '=':
+                print('=' * 40)
+            elif linha[0] == '.':
+                input('Digite algo para continuar: ')
+                print()
             elif linha[0] == '>':
                 print(linha[:1].rjust(largura))
             elif linha[0] == '*':
                 print(linha[1:].center(largura))
             else:
                 print(linha)
+
+
+def arquivo_paginado():
+    print()
 
 
 def main():

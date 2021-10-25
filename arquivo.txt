@@ -3,3 +3,5 @@
 *Esta linha deve ser centralizada
 Uma linha normal
 Outra linha normal
+=Este é um teste
+.Este também é um teste
