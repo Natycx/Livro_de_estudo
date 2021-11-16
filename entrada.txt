@@ -1,7 +1,6 @@
-;Esta linha não deve ser impressa
+;Esta linha não deve ser impressa.
 >Esta linha deve ser impressa alinhada a direita
 *Esta linha deve ser centralizada
 Uma linha normal
-Outra linha normal
-=Este é um teste
-.Este também é um teste
+Outra linha
+= Linha de teste

@@ -58,9 +58,10 @@ def altera():
 
 def lista():
     print('\nAgenda\n\n------')
-    for e in agenda:
+    for posicao, e in enumerate(agenda):
+        print(f"Posição: {posicao}", end="")
         mostra_dados(e[0], e[1])
-    print('------\n')
+    print("------\n")
 
 
 def le():
@@ -71,6 +72,7 @@ def le():
         for l in arquivo.readlines():
             nome, telefone = l.strip().split('#')
             agenda.append([nome, telefone])
+        arquivo.close()
 
 
 def grava():
@@ -79,6 +81,7 @@ def grava():
     with open(nome_arquivo, 'w', encoding='utf-8') as arquivo:
         for e in agenda:
             arquivo.write(f'{e[0]}#{e[1]}\n')
+        arquivo.close()
 
 
 def valida_faixa_inteiro(pergunta, inicio, fim):
@@ -101,6 +104,7 @@ def menu():
           '6 - Lê\n'
           ''
           '0 - Sai\n')
+    print(f"\nNomes na agenda: {len(agenda)}\n")
     return valida_faixa_inteiro('Escolha uma opção: ', 0, 6)
 
 
@@ -120,5 +124,3 @@ while True:
         grava()
     if opcao == 6:
         le()
-
-
